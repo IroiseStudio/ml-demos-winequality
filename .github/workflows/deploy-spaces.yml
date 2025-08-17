@@ -15,10 +15,10 @@ jobs:
       matrix:
         demo:
           - name: DecisionTree
-            space: your-hf-username/DT_WineQuality
+            space: AlbanDelamarre/DT_WineQuality
             path: DecisionTree
           - name: RandomForest
-            space: your-hf-username/RF_WineQuality
+            space: AlbanDelamarre/RF_WineQuality
             path: RandomForest
 
     steps:
