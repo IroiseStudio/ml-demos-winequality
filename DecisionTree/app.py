@@ -315,7 +315,7 @@ def build_ui() -> gr.Blocks:
             - **Regression**: predicts a *numeric* wine quality score (e.g., 5.8).  
             - **Classification**: predicts a *discrete* quality class (e.g., 5, 6, 7).
 
-            After training, you’ll see:
+            After training, you will see:
             - **Metrics** (accuracy, precision, recall, F1 for classification; MAE, RMSE, R² for regression)  
             - **Feature importance** rankings  
             - **Confusion matrix** (for classification)  
