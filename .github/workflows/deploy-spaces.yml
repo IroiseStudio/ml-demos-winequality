@@ -1,0 +1,56 @@
+name: Deploy to Hugging Face Spaces
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'DecisionTree/**'
+      - 'RandomForest/**'
+  workflow_dispatch:
+
+jobs:
+  deploy-demos:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        demo:
+          - name: DecisionTree
+            space: your-hf-username/DT_WineQuality
+            path: DecisionTree
+          - name: RandomForest
+            space: your-hf-username/RF_WineQuality
+            path: RandomForest
+
+    steps:
+      - name: Checkout repo (with LFS)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - name: Prepare workspace for ${{ matrix.demo.name }}
+        run: |
+          rm -rf out && mkdir -p out
+          rsync -av --delete "${{ matrix.demo.path }}/" out/
+          # ensure app file exists at the root of the Space
+          ls -la out
+
+      - name: Init Git for Space content
+        working-directory: out
+        run: |
+          git init
+          git config user.email "actions@github.com"
+          git config user.name "github-actions[bot]"
+          git lfs install || true
+          git add .
+          git commit -m "CI: deploy ${{ matrix.demo.name }} from GitHub"
+
+      - name: Push to Hugging Face Space
+        working-directory: out
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          # First-time run? You can create the Space in the UI or add remote directly:
+          git remote add space https://huggingface.co/spaces/${{ matrix.demo.space }}
+          # Auth via token in the URL
+          git push --force "https://oauth2:${HF_TOKEN}@huggingface.co/spaces/${{ matrix.demo.space }}" HEAD:main
