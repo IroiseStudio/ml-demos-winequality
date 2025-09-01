@@ -6,6 +6,7 @@ on:
     paths:
       - 'DecisionTree/**'
       - 'RandomForest/**'
+      - 'MultiLayerPerceptron/**'
   workflow_dispatch:
 
 jobs:
@@ -20,6 +21,9 @@ jobs:
           - name: RandomForest
             space: AlbanDelamarre/RF_WineQuality
             path: RandomForest
+          - name: MultiLayerPerceptron
+            space: AlbanDelamarre/MLP_WineQuality
+            path: MultiLayerPerceptron
 
     steps:
       - name: Checkout repo (with LFS)
@@ -32,7 +36,6 @@ jobs:
         run: |
           rm -rf out && mkdir -p out
           rsync -av --delete "${{ matrix.demo.path }}/" out/
-          # ensure app file exists at the root of the Space
           ls -la out
 
       - name: Init Git for Space content
@@ -50,7 +53,5 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          # First-time run? You can create the Space in the UI or add remote directly:
           git remote add space https://huggingface.co/spaces/${{ matrix.demo.space }}
-          # Auth via token in the URL
           git push --force "https://oauth2:${HF_TOKEN}@huggingface.co/spaces/${{ matrix.demo.space }}" HEAD:main
