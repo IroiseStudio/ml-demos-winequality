@@ -8,6 +8,7 @@ on:
       - 'RandomForest/**'
       - 'MultiLayerPerceptron/**'
       - 'SupportVectorMachine/**'
+      - 'NaiveBayes/**'
   workflow_dispatch:
 
 jobs:
@@ -28,6 +29,9 @@ jobs:
           - name: SupportVectorMachine
             space: AlbanDelamarre/SVM_WineQuality
             path: SupportVectorMachine
+          - name: NaiveBayes
+            space: AlbanDelamarre/NB_WineQuality
+            path: NaiveBayes
 
     steps:
       - name: Checkout repo (with LFS)
