@@ -7,6 +7,7 @@ on:
       - 'DecisionTree/**'
       - 'RandomForest/**'
       - 'MultiLayerPerceptron/**'
+      - 'SupportVectorMachine/**'
   workflow_dispatch:
 
 jobs:
@@ -24,6 +25,9 @@ jobs:
           - name: MultiLayerPerceptron
             space: AlbanDelamarre/MLP_WineQuality
             path: MultiLayerPerceptron
+          - name: SupportVectorMachine
+            space: AlbanDelamarre/SVM_WineQuality
+            path: SupportVectorMachine
 
     steps:
       - name: Checkout repo (with LFS)

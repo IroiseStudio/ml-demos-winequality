@@ -1,5 +1,5 @@
 ---
-license: apache-2.0
+license: cc
 title: MLP_WineQuality
 sdk: gradio
 colorFrom: purple
