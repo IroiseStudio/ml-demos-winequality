@@ -9,6 +9,7 @@ on:
       - 'MultiLayerPerceptron/**'
       - 'SupportVectorMachine/**'
       - 'NaiveBayes/**'
+      - 'LinearRegression/**'
   workflow_dispatch:
 
 jobs:
@@ -32,6 +33,9 @@ jobs:
           - name: NaiveBayes
             space: AlbanDelamarre/NB_WineQuality
             path: NaiveBayes
+          - name: LinearRegression
+            space: AlbanDelamarre/LR_WineQuality
+            path: LinearRegression
 
     steps:
       - name: Checkout repo (with LFS)
