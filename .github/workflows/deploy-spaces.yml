@@ -10,6 +10,7 @@ on:
       - 'SupportVectorMachine/**'
       - 'NaiveBayes/**'
       - 'LinearRegression/**'
+      - 'KNearestNeighbors/**'
   workflow_dispatch:
 
 jobs:
@@ -36,6 +37,9 @@ jobs:
           - name: LinearRegression
             space: AlbanDelamarre/LR_WineQuality
             path: LinearRegression
+          - name: KNearestNeighbors
+            space: AlbanDelamarre/KNN_WineQuality
+            path: KNearestNeighbors
 
     steps:
       - name: Checkout repo (with LFS)
